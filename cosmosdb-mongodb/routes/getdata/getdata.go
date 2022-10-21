@@ -18,7 +18,7 @@ import (
 func ApiRoute(w http.ResponseWriter, r *http.Request) {
 	type Todo struct {
 		ID        primitive.ObjectID `bson:"_id,omitempty"`
-		Todo      string             `bson:"todo"`
+		Name      string             `bson:"name"`
 		Completed bool               `bson:"completed"`
 	}
 	var todos []Todo
@@ -49,7 +49,7 @@ func ApiRoute(w http.ResponseWriter, r *http.Request) {
 	for _, todo := range todos {
 		s, _ := todo.ID.MarshalJSON()
 		b := strconv.FormatBool(todo.Completed)
-		todoTable = append(todoTable, []string{string(s), todo.Todo, b})
+		todoTable = append(todoTable, []string{string(s), todo.Name, b})
 	}
 
 	w.Header().Set("Content-Type", "application/json")
